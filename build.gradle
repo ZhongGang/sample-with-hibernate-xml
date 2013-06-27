@@ -40,6 +40,7 @@ dependencies {
     compile 'org.aspectj:aspectjweaver:1.7.2'
     compile 'net.bull.javamelody:javamelody-core:1.43.0'
     compile 'javax.mail:mail:1.4.7'
+    compile 'org.springframework.data:spring-data-hadoop:1.0.0.RELEASE'
     testCompile 'org.testng:testng:6.8.5'
     testCompile 'org.springframework:spring-test:3.2.1.RELEASE'
 }
