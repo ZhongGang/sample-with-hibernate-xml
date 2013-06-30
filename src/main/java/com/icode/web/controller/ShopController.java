@@ -1,12 +1,15 @@
 package com.icode.web.controller;
 
 import com.icode.core.dto.ShopFormDTO;
+import com.icode.core.dto.ShopOverviewDTO;
 import com.icode.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,6 +32,12 @@ public class ShopController {
     @RequestMapping(value = "form", method = RequestMethod.POST)
     public String submitForm(ShopFormDTO shop) {
         shopService.saveOrUpdateShop(shop);
-        return "redirect:/";
+        return "redirect:overview";
+    }
+
+    @RequestMapping(value = "overview")
+    public ModelAndView overview() {
+        List<ShopOverviewDTO> shops = shopService.loadShops();
+        return new ModelAndView("shopsOverview", "shops", shops);
     }
 }

@@ -1,6 +1,9 @@
 package com.icode.service;
 
 import com.icode.core.dto.ShopFormDTO;
+import com.icode.core.dto.ShopOverviewDTO;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,4 +14,8 @@ import com.icode.core.dto.ShopFormDTO;
 public interface ShopService {
 
     void saveOrUpdateShop(ShopFormDTO shop);
+
+    List<ShopOverviewDTO> loadShops();
+
+    List search() throws InterruptedException;
 }

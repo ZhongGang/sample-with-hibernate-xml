@@ -5,6 +5,7 @@ import com.icode.core.model.Shop;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +26,11 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
     @Test
     @Transactional
     public void testSaveOrUpdate() throws Exception {
-        Shop shop = new Shop("Shop1", "Shop111111111");
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(shop);
+        for (int i = 0; i < 100000; i++) {
+            Shop shop = new Shop("Shop" + i, "Shop" + i);
+            Session session = sessionFactory.getCurrentSession();
+            session.persist(shop);
+        }
     }
 
     @Test

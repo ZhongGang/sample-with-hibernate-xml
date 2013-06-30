@@ -10,10 +10,14 @@
     <title>Index</title>
 </head>
 <body>
-<h1>Hello My Code!</h1>
+<form action="search" method="get">
+    <input type="text" name="keyword"/><input type="submit" value="全文搜索"/>
+</form>
 
 <p>
     <a href="/shop/form">添加商铺</a>
 </p>
+
+<h1>${size}</h1>
 </body>
 </html>

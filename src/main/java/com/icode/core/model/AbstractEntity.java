@@ -38,4 +38,12 @@ public abstract class AbstractEntity {
     @Column(name = "last_modify_time", columnDefinition = "datetime")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastModifyTime = JodaTimeUtils.now();
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
 }
