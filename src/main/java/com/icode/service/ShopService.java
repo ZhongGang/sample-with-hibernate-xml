@@ -1,5 +1,6 @@
 package com.icode.service;
 
+import com.icode.core.dto.ExamineDTO;
 import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.dto.ShopOverviewDTO;
 
@@ -18,4 +19,8 @@ public interface ShopService {
     List<ShopOverviewDTO> loadShops();
 
     List search() throws InterruptedException;
+
+    void saveOrUpdateExamine(ExamineDTO examine);
+
+    List<ExamineDTO> loadExamines();
 }
