@@ -15,4 +15,9 @@ public class MySQL5InnoDBCharsetDialect extends MySQL5InnoDBDialect {
         String tableTypeString = super.getTableTypeString();
         return tableTypeString + " DEFAULT CHARSET=utf8;";
     }
+
+    @Override
+    public boolean hasAlterTable() {
+        return false;
+    }
 }

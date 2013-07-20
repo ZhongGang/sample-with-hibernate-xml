@@ -28,7 +28,7 @@ public class Shop extends AbstractEntity {
     @Field(store = Store.YES, analyzer = @Analyzer(impl = StandardAnalyzer.class))
     private String name;
 
-    @Column
+    @Column(columnDefinition = "text")
     @Field(store = Store.YES)
     private String description;
 
