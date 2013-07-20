@@ -2,6 +2,7 @@ package com.icode.core.model;
 
 import com.icode.core.shared.GuidGenerator;
 import com.icode.core.shared.JodaTimeUtils;
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -20,6 +21,7 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractEntity {
     @Id
     @GeneratedValue
+    @Index(name = "primary_index")
     private Integer id;
 
     @Column

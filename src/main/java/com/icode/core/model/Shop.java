@@ -3,6 +3,7 @@ package com.icode.core.model;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Index;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -34,6 +35,7 @@ public class Shop extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")
     @Fetch(value = FetchMode.JOIN)
+    @Index(name = "shop_index")
     private List<Product> products = new ArrayList<Product>();
 
     public Shop() {
