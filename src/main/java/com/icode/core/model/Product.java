@@ -21,6 +21,7 @@ import javax.persistence.Table;
 @Table(name = "product")
 @Indexed(index = "Product")
 @Analyzer(impl = StandardAnalyzer.class)
+@Audited
 public class Product extends AbstractEntity {
 
     @Column

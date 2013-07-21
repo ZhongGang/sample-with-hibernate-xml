@@ -21,36 +21,40 @@ import java.util.List;
  * Time: 上午1:08
  */
 @Service("shopService")
-@Transactional(readOnly = true)
+@Transactional
 public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopDao shopDao;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void saveOrUpdateShop(ShopFormDTO shopFormDTO) {
         Shop shop = shopFormDTO.toShop();
         shopDao.saveOrUpdate(shop);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ShopOverviewDTO> loadShops() {
         return shopDao.findShops();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List search() throws InterruptedException {
         return shopDao.search();
     }
 
     @Override
+    @Transactional
     public void saveOrUpdateExamine(ExamineDTO examineDTO) {
         Examine examine = examineDTO.toExamine();
         shopDao.saveOrUpdate(examine);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ExamineDTO> loadExamines() {
         List<ExamineDTO> examineDTOs = new ArrayList<ExamineDTO>();
         List<Examine> examines = shopDao.findAll(Examine.class);
