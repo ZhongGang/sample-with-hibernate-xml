@@ -24,7 +24,7 @@ public class ShopDaoImpl extends EntityDaoImpl implements ShopDao {
 
     @Override
     public List<ShopOverviewDTO> findShops() {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select new com.icode.core.dto.ShopOverviewDTO(s) from Shop s where s.active = true");
         return query.list();
     }
