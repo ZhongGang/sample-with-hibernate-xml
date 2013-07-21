@@ -5,11 +5,12 @@ import com.icode.core.model.Shop;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +35,6 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
     }
 
     @Test
-    @Transactional
     public void testNPlusOneProblem() throws Exception {
         Session session = sessionFactory.openSession();
 
@@ -59,6 +59,8 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
         session.flush();
         session.clear();
 
-        session.createCriteria(Shop.class).list();
+        List<Shop> shops = session.createCriteria(Shop.class).list();
+        List<Product> products = shops.get(0).getProducts();
+        System.out.println(products.size());
     }
 }

@@ -21,13 +21,14 @@ import java.util.List;
  * Time: 上午1:08
  */
 @Service("shopService")
+@Transactional(readOnly = true)
 public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopDao shopDao;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public void saveOrUpdateShop(ShopFormDTO shopFormDTO) {
         Shop shop = shopFormDTO.toShop();
         shopDao.saveOrUpdate(shop);
@@ -39,13 +40,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    @Transactional
     public List search() throws InterruptedException {
         return shopDao.search();
     }
 
     @Override
-    @Transactional
     public void saveOrUpdateExamine(ExamineDTO examineDTO) {
         Examine examine = examineDTO.toExamine();
         shopDao.saveOrUpdate(examine);

@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Date: 13-6-23
  * Time: 上午1:32
  */
+@Repository("entityDao")
 public class EntityDaoImpl implements EntityDao {
 
     @Autowired
@@ -23,7 +25,7 @@ public class EntityDaoImpl implements EntityDao {
 
     @Override
     public <T extends AbstractEntity> void saveOrUpdate(T t) {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(t);
     }
 
@@ -34,7 +36,7 @@ public class EntityDaoImpl implements EntityDao {
 
     @Override
     public <T extends AbstractEntity> List<T> findAll(Class<T> clazz) {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from " + clazz.getSimpleName());
         return query.list();
     }

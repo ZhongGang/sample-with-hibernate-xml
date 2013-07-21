@@ -1,6 +1,7 @@
 package com.icode.core.model;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.hibernate.envers.Audited;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;

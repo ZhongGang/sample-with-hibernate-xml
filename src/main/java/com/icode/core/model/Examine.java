@@ -1,5 +1,7 @@
 package com.icode.core.model;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table
+@Audited
 public class Examine extends AbstractEntity {
 
     @Embedded
