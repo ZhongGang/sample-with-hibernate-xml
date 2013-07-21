@@ -3,6 +3,7 @@ package com.icode.service.impl;
 import com.icode.core.dto.ShopFormDTO;
 import com.icode.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +27,11 @@ public class ShopServiceImplTest extends AbstractTransactionalTestNGSpringContex
         ShopFormDTO shop = new ShopFormDTO();
         shop.setName("SHOP_SHOP_SHOP");
         shopService.saveOrUpdateShop(shop);
+    }
+
+    @Test
+    @Rollback(value = false)
+    public void testWork() throws Exception {
+        shopService.work();
     }
 }

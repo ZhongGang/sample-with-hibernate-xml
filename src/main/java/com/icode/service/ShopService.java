@@ -23,4 +23,6 @@ public interface ShopService {
     void saveOrUpdateExamine(ExamineDTO examine);
 
     List<ExamineDTO> loadExamines();
+
+    void work();
 }

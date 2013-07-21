@@ -5,6 +5,8 @@ import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.dto.ShopOverviewDTO;
 import com.icode.core.model.Examine;
 import com.icode.core.model.Shop;
+import com.icode.core.transaction.Worker;
+import com.icode.core.transaction.WorkerFactory;
 import com.icode.dao.ShopDao;
 import com.icode.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopDao shopDao;
+
+    @Autowired
+    private WorkerFactory workerFactory;
 
     @Override
     @Transactional
@@ -63,5 +68,15 @@ public class ShopServiceImpl implements ShopService {
             examineDTOs.add(examineDTO);
         }
         return examineDTOs;
+    }
+
+    @Override
+    @Transactional
+    public void work() {
+        Shop shop = new Shop();
+        shopDao.saveOrUpdate(shop);
+        Worker worker = workerFactory.create();
+        worker.work(30);
+//        throw new UnsupportedOperationException("Check whether the worker is committed or rollback~~~");
     }
 }
