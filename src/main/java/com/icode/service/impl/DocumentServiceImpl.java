@@ -7,6 +7,8 @@ import com.icode.dao.DocumentDao;
 import com.icode.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,7 +27,7 @@ public class DocumentServiceImpl implements DocumentService {
     private DocumentUploaderFactory documentUploaderFactory;
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
     public void upload(Document document) {
         DocumentUploader uploader = documentUploaderFactory.create(documentDao, document);
         uploader.upload();
