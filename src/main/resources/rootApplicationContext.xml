@@ -13,6 +13,7 @@
     <context:component-scan base-package="com.icode.dao"/>
     <context:component-scan base-package="com.icode.service"/>
     <context:component-scan base-package="com.icode.core.transaction"/>
+    <context:component-scan base-package="com.icode.spring"/>
 
     <context:property-placeholder location="classpath:database.properties"/>
 

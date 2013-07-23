@@ -1,12 +1,16 @@
 package com.icode.service.impl;
 
+import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.model.Shop;
+import com.icode.service.ShopService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.testng.annotations.Test;
 
 /**
@@ -16,20 +20,27 @@ import org.testng.annotations.Test;
  * Time: 下午12:42
  */
 @ContextConfiguration(locations = "classpath:rootApplicationContext.xml")
-public class ShopTest extends AbstractTestNGSpringContextTests {
+public class ShopTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private ShopService shopService;
+
     @Test
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void testSaveOrUpdateShopWithoutTransaction() throws Exception {
         Shop shop = new Shop();
         Session session = sessionFactory.openSession();
-
-        Transaction transaction = session.getTransaction();
-
-        transaction.begin();
         session.saveOrUpdate(shop);
-        transaction.commit();
+    }
+
+    @Test
+    public void testSaveOrUpdateShopWithTransaction() throws Exception {
+        ShopFormDTO shopFormDTO = new ShopFormDTO();
+        shopService.saveOrUpdateShop(shopFormDTO);
+
+        TransactionSynchronizationManager.isActualTransactionActive();
     }
 }

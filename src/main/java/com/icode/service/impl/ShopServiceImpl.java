@@ -11,6 +11,8 @@ import com.icode.dao.ShopDao;
 import com.icode.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class ShopServiceImpl implements ShopService {
     private WorkerFactory workerFactory;
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
     public void saveOrUpdateShop(ShopFormDTO shopFormDTO) {
         Shop shop = shopFormDTO.toShop();
         shopDao.saveOrUpdate(shop);
