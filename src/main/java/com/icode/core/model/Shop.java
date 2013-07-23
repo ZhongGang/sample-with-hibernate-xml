@@ -4,7 +4,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Index;
-import org.hibernate.envers.Audited;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -24,7 +23,6 @@ import java.util.List;
 @Table(name = "shop")
 @Indexed(index = "Shop")
 @Analyzer(impl = StandardAnalyzer.class)
-@Audited
 public class Shop extends AbstractEntity {
     @Column
     @Field(store = Store.YES, analyzer = @Analyzer(impl = StandardAnalyzer.class))

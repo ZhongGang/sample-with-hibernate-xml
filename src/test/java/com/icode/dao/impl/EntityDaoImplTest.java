@@ -4,6 +4,7 @@ import com.icode.core.model.Product;
 import com.icode.core.model.Shop;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
@@ -31,6 +32,15 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
             Shop shop = new Shop("Shop" + i, "Shop" + i);
             Session session = sessionFactory.getCurrentSession();
             session.persist(shop);
+
+            session.close();
+
+            Transaction transaction = session.getTransaction();
+
+            transaction.begin();
+
+            transaction.commit();
+
         }
     }
 
