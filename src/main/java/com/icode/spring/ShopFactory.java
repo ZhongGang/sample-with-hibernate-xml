@@ -25,6 +25,6 @@ public class ShopFactory implements FactoryBean<Shop> {
 
     @Override
     public boolean isSingleton() {
-        return true;
+        return false;
     }
 }
