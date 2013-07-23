@@ -3,6 +3,7 @@ package com.icode.service.impl;
 import com.icode.core.model.Shop;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -24,6 +25,11 @@ public class ShopTest extends AbstractTestNGSpringContextTests {
     public void testSaveOrUpdateShopWithoutTransaction() throws Exception {
         Shop shop = new Shop();
         Session session = sessionFactory.openSession();
+
+        Transaction transaction = session.getTransaction();
+
+        transaction.begin();
         session.saveOrUpdate(shop);
+        transaction.commit();
     }
 }
