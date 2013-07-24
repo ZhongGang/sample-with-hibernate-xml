@@ -31,7 +31,9 @@ public class EntityDaoImpl implements EntityDao {
 
     @Override
     public <T extends AbstractEntity> T findByGuid(Class<T> clazz, String guid) {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from " + clazz.getSimpleName() + " c where c.guid=" + guid);
+        return query.list().isEmpty() ? null : (T) query.list().get(0);
     }
 
     @Override

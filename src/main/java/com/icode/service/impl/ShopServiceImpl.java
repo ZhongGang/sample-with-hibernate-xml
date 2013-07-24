@@ -35,14 +35,17 @@ public class ShopServiceImpl implements ShopService {
     private WorkerFactory workerFactory;
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
-    public void saveOrUpdateShop(ShopFormDTO shopFormDTO) {
-        Shop shop = shopFormDTO.toShop();
-        shopDao.saveOrUpdate(shop);
+    @Transactional
+    public String saveOrUpdateShop(ShopFormDTO shopFormDTO) {
+        if (shopFormDTO.isNew()) {
+            return saveShop(shopFormDTO);
+        } else {
+            return updateShop(shopFormDTO);
+        }
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     public List<ShopOverviewDTO> loadShops() {
         return shopDao.findShops();
     }
@@ -80,5 +83,27 @@ public class ShopServiceImpl implements ShopService {
         Worker worker = workerFactory.create();
         worker.work(30);
 //        throw new UnsupportedOperationException("Check whether the worker is committed or rollback~~~");
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
+    public String saveShop(ShopFormDTO shopFormDTO) {
+        Shop shop = shopFormDTO.toShop(shopDao);
+        shopDao.saveOrUpdate(shop);
+        return shop.getGuid();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
+    public String updateShop(ShopFormDTO shopFormDTO) {
+        Shop shop = shopFormDTO.toShop(shopDao);
+        shopDao.saveOrUpdate(shop);
+        return shop.getGuid();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
+    public Shop loadShopByGuid(String guid) {
+        return shopDao.findByGuid(Shop.class, guid);
     }
 }

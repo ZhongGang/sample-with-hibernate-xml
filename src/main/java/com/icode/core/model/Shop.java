@@ -61,4 +61,9 @@ public class Shop extends AbstractEntity {
     public List<Product> getProducts() {
         return products;
     }
+
+    public void update(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

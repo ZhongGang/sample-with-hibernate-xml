@@ -3,6 +3,7 @@ package com.icode.service;
 import com.icode.core.dto.ExamineDTO;
 import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.dto.ShopOverviewDTO;
+import com.icode.core.model.Shop;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface ShopService {
 
-    void saveOrUpdateShop(ShopFormDTO shop);
+    String saveOrUpdateShop(ShopFormDTO shop);
 
     List<ShopOverviewDTO> loadShops();
 
@@ -25,4 +26,10 @@ public interface ShopService {
     List<ExamineDTO> loadExamines();
 
     void work();
+
+    String saveShop(ShopFormDTO shopFormDTO);
+
+    String updateShop(ShopFormDTO shopFormDTO);
+
+    Shop loadShopByGuid(String guid);
 }
