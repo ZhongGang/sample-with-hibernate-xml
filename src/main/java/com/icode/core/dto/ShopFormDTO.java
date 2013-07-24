@@ -63,7 +63,7 @@ public class ShopFormDTO {
         this.description = description;
     }
 
-    public Shop toShop(ShopDao shopDao) {
+    public Shop toShop() {
         if (isNew()) {
             return new Shop(this.name, this.description);
         } else {

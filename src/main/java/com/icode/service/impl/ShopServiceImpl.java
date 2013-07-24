@@ -88,7 +88,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
     public String saveShop(ShopFormDTO shopFormDTO) {
-        Shop shop = shopFormDTO.toShop(shopDao);
+        Shop shop = shopFormDTO.toShop();
         shopDao.saveOrUpdate(shop);
         return shop.getGuid();
     }
@@ -96,7 +96,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
     public String updateShop(ShopFormDTO shopFormDTO) {
-        Shop shop = shopFormDTO.toShop(shopDao);
+        Shop shop = shopFormDTO.toShop();
         shopDao.saveOrUpdate(shop);
         return shop.getGuid();
     }
