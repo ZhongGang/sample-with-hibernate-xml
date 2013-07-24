@@ -10,10 +10,13 @@
                            http://www.springframework.org/schema/tx
                            http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
+    <context:load-time-weaver aspectj-weaving="on"
+                              weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
     <context:component-scan base-package="com.icode.dao"/>
     <context:component-scan base-package="com.icode.service"/>
     <context:component-scan base-package="com.icode.core.transaction"/>
     <context:component-scan base-package="com.icode.spring"/>
+    <context:component-scan base-package="com.icode.core.dto"/>
 
     <context:property-placeholder location="classpath:database.properties"/>
 
@@ -41,7 +44,8 @@
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="nestedTransactionAllowed" value="true"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
 </beans>

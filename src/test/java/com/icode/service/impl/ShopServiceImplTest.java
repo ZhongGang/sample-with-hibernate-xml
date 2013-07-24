@@ -1,6 +1,7 @@
 package com.icode.service.impl;
 
 import com.icode.core.dto.ShopFormDTO;
+import com.icode.core.model.Shop;
 import com.icode.service.ShopService;
 import com.icode.thread.ReadThread;
 import com.icode.thread.WriteThread;
@@ -50,5 +51,13 @@ public class ShopServiceImplTest extends AbstractTransactionalTestNGSpringContex
 
 
         Thread.sleep(10000);
+    }
+
+    @Test
+    @Transactional
+    public void testSaveOrUpdateShopWithNestedTransaction() throws Exception {
+        Shop shop = shopService.loadShopByGuid("11");
+        ShopFormDTO shopFormDTO = new ShopFormDTO(shop);
+        shopService.saveOrUpdateShop(shopFormDTO);
     }
 }

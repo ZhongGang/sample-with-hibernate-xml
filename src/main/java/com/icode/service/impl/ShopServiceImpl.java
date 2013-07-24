@@ -35,7 +35,7 @@ public class ShopServiceImpl implements ShopService {
     private WorkerFactory workerFactory;
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
     public String saveOrUpdateShop(ShopFormDTO shopFormDTO) {
         if (shopFormDTO.isNew()) {
             return saveShop(shopFormDTO);
@@ -57,7 +57,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
     public void saveOrUpdateExamine(ExamineDTO examineDTO) {
         Examine examine = examineDTO.toExamine();
         shopDao.saveOrUpdate(examine);
@@ -102,7 +102,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
     public Shop loadShopByGuid(String guid) {
         return shopDao.findByGuid(Shop.class, guid);
     }

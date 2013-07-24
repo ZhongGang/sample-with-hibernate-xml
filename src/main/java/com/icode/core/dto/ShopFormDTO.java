@@ -2,6 +2,9 @@ package com.icode.core.dto;
 
 import com.icode.core.model.Shop;
 import com.icode.dao.ShopDao;
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,10 +12,14 @@ import com.icode.dao.ShopDao;
  * Date: 13-6-22
  * Time: 下午11:11
  */
+@Configurable(autowire = Autowire.BY_NAME, preConstruction = true)
 public class ShopFormDTO {
     private String guid;
     private String name;
     private String description;
+
+    @Autowired
+    private ShopDao shopDao;
 
     public ShopFormDTO() {
     }
