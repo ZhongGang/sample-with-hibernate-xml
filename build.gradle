@@ -37,4 +37,6 @@ dependencies {
     testCompile 'org.testng:testng:6.8.5'
     testCompile 'org.springframework:spring-test:3.2.3.RELEASE'
 
+    compile 'com.google.guava:guava:14.0.1'
+
 }
