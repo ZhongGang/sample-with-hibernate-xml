@@ -3,6 +3,7 @@ package com.icode.service.impl;
 import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.model.Shop;
 import com.icode.service.ShopService;
+import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -34,6 +36,12 @@ public class ShopTest extends AbstractTransactionalTestNGSpringContextTests {
         Shop shop = new Shop();
         Session session = sessionFactory.openSession();
         session.saveOrUpdate(shop);
+
+        session.flush();
+        session.clear();
+
+        shop = (Shop) session.get(Shop.class, 1, LockOptions.UPGRADE);
+        Assert.assertEquals(shop, shop);
     }
 
     @Test
