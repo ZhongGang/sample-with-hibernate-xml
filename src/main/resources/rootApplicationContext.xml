@@ -16,7 +16,6 @@
     <context:component-scan base-package="com.icode.service"/>
     <context:component-scan base-package="com.icode.core.transaction"/>
     <context:component-scan base-package="com.icode.spring"/>
-    <context:component-scan base-package="com.icode.core.dto"/>
 
     <context:property-placeholder location="classpath:database.properties"/>
 
