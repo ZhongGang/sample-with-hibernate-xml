@@ -25,16 +25,6 @@
         <webflow-config:flow-location path="classpath:userForm.xml" id="userForm"/>
     </webflow-config:flow-registry>
 
-    <webflow-config:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator"/>
-
-    <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
-        <property name="viewResolvers">
-            <list>
-                <ref bean="viewResolver"/>
-            </list>
-        </property>
-    </bean>
-
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
         <property name="order" value="0"/>
