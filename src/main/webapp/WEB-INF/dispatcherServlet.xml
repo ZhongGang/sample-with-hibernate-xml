@@ -19,15 +19,18 @@
 
     <mvc:resources mapping="/js/**" location="/js/"/>
 
-    <webflow-config:flow-executor id="flowExecutor" flow-registry="flowRegistry"/>
+    <webflow-config:flow-executor id="flowExecutor" flow-registry="flowRegistry">
+
+    </webflow-config:flow-executor>
 
     <webflow-config:flow-registry id="flowRegistry">
         <webflow-config:flow-location path="classpath:userForm.xml" id="userForm"/>
     </webflow-config:flow-registry>
 
+    <webflow-config:flow-builder-services id="flowBuilderServices" development="true"/>
+
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
-        <property name="order" value="0"/>
     </bean>
 
     <bean id="flowHandlerAdapter" class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
