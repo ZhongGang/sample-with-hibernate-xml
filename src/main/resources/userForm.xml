@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="username" view="/WEB-INF/views/user/username.jsp">
+        <transition on="next" to="password"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+
+    <view-state id="password" view="/WEB-INF/views/user/password.jsp">
+        <transition on="previous" to="username"/>
+        <transition on="next" to="introduction"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+
+    <view-state id="introduction" view="/WEB-INF/views/user/introduction.jsp">
+        <transition on="previous" to="password"/>
+        <transition on="save" to="save"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+
+    <end-state id="save" view="/WEB-INF/views/welcome.jsp"/>
+    <end-state id="cancel" view="/WEB-INF/views/welcome.jsp"/>
+</flow>

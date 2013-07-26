@@ -39,4 +39,6 @@ dependencies {
 
     compile 'com.google.guava:guava:14.0.1'
 
+    compile 'org.springframework.webflow:spring-webflow:2.3.2.RELEASE'
+
 }
