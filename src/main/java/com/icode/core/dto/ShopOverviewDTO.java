@@ -2,13 +2,15 @@ package com.icode.core.dto;
 
 import com.icode.core.model.Shop;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ZhongGang
  * Date: 13-6-30
  * Time: 下午2:19
  */
-public class ShopOverviewDTO {
+public class ShopOverviewDTO implements Serializable {
     private String guid;
     private String name;
     private String description;

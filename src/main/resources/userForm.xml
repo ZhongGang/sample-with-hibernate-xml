@@ -3,23 +3,26 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <view-state id="username" view="/WEB-INF/views/user/username.jsp">
+    <view-state id="username" view="user/username">
         <transition on="next" to="password"/>
         <transition on="cancel" to="cancel"/>
     </view-state>
 
-    <view-state id="password" view="/WEB-INF/views/user/password.jsp">
+    <view-state id="password" view="user/password">
+        <on-render>
+            <evaluate expression="shopService.loadShops()" result="flowScope.shops"/>
+        </on-render>
         <transition on="previous" to="username"/>
         <transition on="next" to="introduction"/>
         <transition on="cancel" to="cancel"/>
     </view-state>
 
-    <view-state id="introduction" view="/WEB-INF/views/user/introduction.jsp">
+    <view-state id="introduction" view="user/introduction">
         <transition on="previous" to="password"/>
         <transition on="save" to="save"/>
         <transition on="cancel" to="cancel"/>
     </view-state>
 
-    <end-state id="save" view="/WEB-INF/views/welcome.jsp"/>
-    <end-state id="cancel" view="/WEB-INF/views/welcome.jsp"/>
+    <end-state id="save" view="welcome"/>
+    <end-state id="cancel" view="welcome"/>
 </flow>
