@@ -9,7 +9,7 @@
 
     <view-state id="username" view="user/username">
         <transition on="next" to="password"/>
-        <transition on="cancel" to="cancel"/>
+        <transition on="cancel" to="cancel" history="discard"/>
     </view-state>
 
     <view-state id="password" view="user/password">
@@ -18,13 +18,13 @@
         </on-render>
         <transition on="previous" to="username"/>
         <transition on="next" to="introduction"/>
-        <transition on="cancel" to="cancel"/>
+        <transition on="cancel" to="cancel" history="discard"/>
     </view-state>
 
     <view-state id="introduction" view="user/introduction">
         <transition on="previous" to="password"/>
         <transition on="save" to="save"/>
-        <transition on="cancel" to="cancel"/>
+        <transition on="cancel" to="cancel" history="discard"/>
     </view-state>
 
     <end-state id="save" view="welcome"/>
