@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <on-start>
         <evaluate expression="shopService.loadShops()" result="flowScope.shops"/>
@@ -9,7 +10,7 @@
 
     <view-state id="username" view="user/username">
         <transition on="next" to="password"/>
-        <transition on="cancel" to="cancel" history="discard"/>
+        <transition on="cancel" to="cancel" history="invalidate"/>
     </view-state>
 
     <view-state id="password" view="user/password">
@@ -18,13 +19,13 @@
         </on-render>
         <transition on="previous" to="username"/>
         <transition on="next" to="introduction"/>
-        <transition on="cancel" to="cancel" history="discard"/>
+        <transition on="cancel" to="cancel" history="invalidate"/>
     </view-state>
 
     <view-state id="introduction" view="user/introduction">
         <transition on="previous" to="password"/>
         <transition on="save" to="save"/>
-        <transition on="cancel" to="cancel" history="discard"/>
+        <transition on="cancel" to="cancel" history="invalidate"/>
     </view-state>
 
     <end-state id="save" view="welcome"/>
