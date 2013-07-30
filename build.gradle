@@ -41,4 +41,6 @@ dependencies {
 
     compile 'org.springframework.webflow:spring-webflow:2.3.2.RELEASE'
 
+    compile 'org.springframework.batch:spring-batch-core:2.2.1.RELEASE'
+
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/batch"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/batch
+                           http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+    <job-repository id="jobRepository" data-source="dataSource" isolation-level-for-create="SERIALIZABLE"
+                    transaction-manager="transactionManager"/>
+
+    <job id="shopsJob" job-repository="jobRepository" restartable="true">
+        <step id="step1">
+            <tasklet>
+                <chunk reader="itemReader" writer="itemWriter" commit-interval="10"/>
+            </tasklet>
+        </step>
+    </job>
+
+    <beans:bean id="itemReader" class="org.springframework.batch.item.support.ListItemReader">
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:ref bean="shop11"/>
+                <beans:ref bean="shop12"/>
+                <beans:ref bean="shop13"/>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
+
+    <beans:bean id="shop11" class="com.icode.core.model.Shop">
+        <beans:constructor-arg index="0" value="The name of shop11"/>
+        <beans:constructor-arg index="1" value="The description of shop11"/>
+    </beans:bean>
+    <beans:bean id="shop12" class="com.icode.core.model.Shop">
+        <beans:constructor-arg index="0" value="The name of shop12"/>
+        <beans:constructor-arg index="1" value="The description of shop12"/>
+    </beans:bean>
+    <beans:bean id="shop13" class="com.icode.core.model.Shop">
+        <beans:constructor-arg index="0" value="The name of shop13"/>
+        <beans:constructor-arg index="1" value="The description of shop13"/>
+    </beans:bean>
+
+    <beans:bean id="itemWriter" class="org.springframework.batch.item.database.HibernateItemWriter">
+        <beans:property name="sessionFactory" ref="sessionFactory"/>
+    </beans:bean>
+
+    <beans:bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <beans:property name="jobRepository" ref="jobRepository"/>
+        <beans:property name="taskExecutor" ref="taskExecutor"/>
+    </beans:bean>
+
+    <beans:bean id="taskExecutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
+</beans:beans>
