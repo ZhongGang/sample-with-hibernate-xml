@@ -13,10 +13,12 @@
     <job id="shopsJob" job-repository="jobRepository" restartable="true">
         <step id="step1">
             <tasklet>
-                <chunk reader="itemReader" writer="itemWriter" commit-interval="10"/>
+                <chunk reader="itemReader" writer="itemWriter" commit-interval="10" processor="itemProcessor"/>
             </tasklet>
         </step>
     </job>
+
+    <beans:bean id="itemProcessor" class="com.icode.core.job.ShopItemProcessor"/>
 
     <beans:bean id="itemReader" class="org.springframework.batch.item.support.ListItemReader">
         <beans:constructor-arg>

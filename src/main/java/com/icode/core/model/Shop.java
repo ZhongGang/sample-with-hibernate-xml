@@ -66,4 +66,8 @@ public class Shop extends AbstractEntity {
         this.name = name;
         this.description = description;
     }
+
+    public void description() {
+        this.description = "~~~~~~~" + this.description + "~~~~~~~";
+    }
 }
