@@ -6,11 +6,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -72,5 +76,12 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
         List<Shop> shops = session.createCriteria(Shop.class).list();
         List<Product> products = shops.get(0).getProducts();
         System.out.println(products.size());
+    }
+
+    @Test
+    public void testGetNativeConnection() throws Exception {
+        DataSource dataSource = SessionFactoryUtils.getDataSource(sessionFactory);
+        Connection connection = DataSourceUtils.getConnection(dataSource);
+
     }
 }

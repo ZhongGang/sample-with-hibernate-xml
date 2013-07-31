@@ -3,6 +3,7 @@ package com.icode.service.impl;
 import com.icode.core.dto.ExamineDTO;
 import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.dto.ShopOverviewDTO;
+import com.icode.core.model.CommentAttachment;
 import com.icode.core.model.Examine;
 import com.icode.core.model.Shop;
 import com.icode.core.transaction.Worker;
@@ -105,5 +106,10 @@ public class ShopServiceImpl implements ShopService {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
     public Shop loadShopByGuid(String guid) {
         return shopDao.findByGuid(Shop.class, guid);
+    }
+
+    @Override
+    public void saveOrUpdateAttachment(CommentAttachment attachment) {
+        shopDao.saveOrUpdate(attachment);
     }
 }

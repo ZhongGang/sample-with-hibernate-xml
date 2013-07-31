@@ -3,6 +3,7 @@ package com.icode.service;
 import com.icode.core.dto.ExamineDTO;
 import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.dto.ShopOverviewDTO;
+import com.icode.core.model.CommentAttachment;
 import com.icode.core.model.Shop;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface ShopService {
     String updateShop(ShopFormDTO shopFormDTO);
 
     Shop loadShopByGuid(String guid);
+
+    void saveOrUpdateAttachment(CommentAttachment attachment);
 }
