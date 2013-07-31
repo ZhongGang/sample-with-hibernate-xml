@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.web.multipart.MultipartFile;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -24,11 +24,14 @@ public class CommentAttachmentTest extends AbstractTransactionalTestNGSpringCont
     private ShopService shopService;
 
     @Test
-    @Rollback(value = false)
     public void testCreateAttachment() throws Exception {
         Resource resource = new ClassPathResource("PROPAGATION.et");
         MultipartFile multipartFile = new MockMultipartFile("PROPAGATION.et", resource.getInputStream());
         CommentAttachment attachment = new CommentAttachment(multipartFile);
         shopService.saveOrUpdateAttachment(attachment);
+
+        attachment = shopService.loadCommentAttachment(attachment.getGuid());
+
+        Assert.assertNotNull(attachment.getContents());
     }
 }

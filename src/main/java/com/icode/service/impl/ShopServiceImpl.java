@@ -112,4 +112,9 @@ public class ShopServiceImpl implements ShopService {
     public void saveOrUpdateAttachment(CommentAttachment attachment) {
         shopDao.saveOrUpdate(attachment);
     }
+
+    @Override
+    public CommentAttachment loadCommentAttachment(String guid) {
+        return shopDao.findByGuid(CommentAttachment.class, guid);
+    }
 }

@@ -32,7 +32,8 @@ public class EntityDaoImpl implements EntityDao {
     @Override
     public <T extends AbstractEntity> T findByGuid(Class<T> clazz, String guid) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from " + clazz.getSimpleName() + " c where c.guid=" + guid);
+        Query query = session.createQuery("from " + clazz.getSimpleName() + " c where c.guid=:guid");
+        query.setParameter("guid", guid);
         return query.list().isEmpty() ? null : (T) query.list().get(0);
     }
 

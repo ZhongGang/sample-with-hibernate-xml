@@ -35,4 +35,6 @@ public interface ShopService {
     Shop loadShopByGuid(String guid);
 
     void saveOrUpdateAttachment(CommentAttachment attachment);
+
+    CommentAttachment loadCommentAttachment(String guid);
 }

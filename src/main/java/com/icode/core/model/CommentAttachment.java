@@ -23,7 +23,7 @@ public class CommentAttachment extends AbstractEntity {
     private String type;
 
     @Lob
-    @Column(columnDefinition = "blob")
+    @Column(columnDefinition = "MediumBlob")
     private byte[] contents;
 
     @Lob
