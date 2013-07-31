@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +24,8 @@ public class Document extends AbstractEntity {
     private transient byte[] content;
 
     @Autowired
-    private transient DocumentDao documentDao;
+    @Transient
+    private DocumentDao documentDao;
 
     public Document(String name, byte[] content) {
         this.name = name;
