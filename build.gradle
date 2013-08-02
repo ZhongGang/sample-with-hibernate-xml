@@ -1,9 +1,33 @@
 apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: 'about'
 
 group = 'com.dream'
 
 version = '1.0'
+
+buildscript {
+    repositories { maven { url 'http://jcenter.bintray.com' } }
+    dependencies { classpath 'com.github.goldin.plugins.gradle:about:0.3' }
+}
+
+about {
+    includeDependencies = ['compile', 'runtime']
+    prefix = '/'
+}
+
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+}
+
+war {
+    manifest {
+        attributes 'Implementation-Title': 'sample-with-hibernate-xml',
+                'Implementation-Author': 'ZhongGang',
+                'Implementation-Version': version
+    }
+    dependsOn 'about'
+}
 
 repositories {
     mavenCentral()
