@@ -4,6 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:webflow-config="http://www.springframework.org/schema/webflow-config"
+       xmlns:oxm="http://www.springframework.org/schema/oxm"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
                            http://www.springframework.org/schema/context
@@ -11,7 +12,7 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
                            http://www.springframework.org/schema/webflow-config
-                           http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+                           http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd">
 
     <context:component-scan base-package="com.icode.web.controller"/>
 
@@ -36,16 +37,11 @@
         </property>
     </bean>
 
-    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-        <property name="classesToBeBound">
-            <list>
-                <value>com.icode.core.dto.ShopFormDTO</value>
-                <value>com.icode.core.dto.ShopOverviewDTO</value>
-                <value>com.icode.core.dto.ShopOverviewDTOs</value>
-            </list>
-        </property>
-        <property name="checkForXmlRootElement" value="false"/>
-    </bean>
+    <oxm:jaxb2-marshaller id="marshaller">
+        <oxm:class-to-be-bound name="com.icode.core.dto.ShopFormDTO"/>
+        <oxm:class-to-be-bound name="com.icode.core.dto.ShopOverviewDTO"/>
+        <oxm:class-to-be-bound name="com.icode.core.dto.ShopOverviewDTOs"/>
+    </oxm:jaxb2-marshaller>
 
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManager">
         <constructor-arg>
