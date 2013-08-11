@@ -2,6 +2,7 @@ package com.icode.core.dto;
 
 import com.icode.core.model.Shop;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
@@ -10,10 +11,19 @@ import java.io.Serializable;
  * Date: 13-6-30
  * Time: 下午2:19
  */
+@XmlRootElement
 public class ShopOverviewDTO implements Serializable {
     private String guid;
     private String name;
     private String description;
+
+    public ShopOverviewDTO() {
+    }
+
+    public ShopOverviewDTO(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public ShopOverviewDTO(Shop shop) {
         this.guid = shop.getGuid();

@@ -2,9 +2,11 @@ package com.icode.web.controller;
 
 import com.icode.core.dto.ShopFormDTO;
 import com.icode.core.dto.ShopOverviewDTO;
+import com.icode.core.dto.ShopOverviewDTOs;
 import com.icode.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,8 +27,10 @@ public class ShopController {
     private ShopService shopService;
 
     @RequestMapping(value = "form", method = RequestMethod.GET)
-    public ModelAndView showForm() {
-        return new ModelAndView("shopForm", "shop", new ShopFormDTO());
+    public String showForm(Model model) {
+        ShopFormDTO shopFormDTO = new ShopFormDTO("Test Name", "Test Description");
+        model.addAttribute("shop", shopFormDTO);
+        return "shopForm";
     }
 
     @RequestMapping(value = "form", method = RequestMethod.POST)
@@ -38,6 +42,6 @@ public class ShopController {
     @RequestMapping(value = "overview")
     public ModelAndView overview() {
         List<ShopOverviewDTO> shops = shopService.loadShops();
-        return new ModelAndView("shopsOverview", "shops", shops);
+        return new ModelAndView("shopsOverview", "shops", new ShopOverviewDTOs(shops));
     }
 }

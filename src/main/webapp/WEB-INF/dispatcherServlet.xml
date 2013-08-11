@@ -19,6 +19,56 @@
 
     <mvc:resources mapping="/js/**" location="/js/"/>
 
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1"/>
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                    <property name="marshaller" ref="marshaller"/>
+                </bean>
+            </list>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="com.icode.web.view.resolver.JsonViewResolver"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>com.icode.core.dto.ShopFormDTO</value>
+                <value>com.icode.core.dto.ShopOverviewDTO</value>
+                <value>com.icode.core.dto.ShopOverviewDTOs</value>
+            </list>
+        </property>
+        <property name="checkForXmlRootElement" value="false"/>
+    </bean>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManager">
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+                    <constructor-arg>
+                        <map>
+                            <entry key="json" value="application/json"/>
+                            <entry key="html" value="text/html"/>
+                            <entry key="xml" value="application/xml"/>
+                        </map>
+                    </constructor-arg>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
     <webflow-config:flow-executor id="flowExecutor" flow-registry="flowRegistry">
 
     </webflow-config:flow-executor>
@@ -44,11 +94,5 @@
 
     <bean id="flowHandlerAdapter" class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
         <property name="flowExecutor" ref="flowExecutor"/>
-    </bean>
-
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".jsp"/>
     </bean>
 </beans>

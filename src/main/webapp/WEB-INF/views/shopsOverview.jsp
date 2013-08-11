@@ -8,7 +8,7 @@
 <h1>Shops Overview</h1>
 <a href="/shop/form">添加商铺</a>
 <table>
-    <c:forEach items="${shops}" var="shop">
+    <c:forEach items="${shops.shopOverviewDTOs}" var="shop">
         <tr>
             <td>${shop.name}</td>
             <td>${shop.description}</td>

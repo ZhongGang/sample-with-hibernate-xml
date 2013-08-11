@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ZhongGang
  * Date: 13-6-22
  * Time: 下午11:11
  */
+@XmlRootElement
 @Configurable(autowire = Autowire.BY_NAME, preConstruction = true)
 public class ShopFormDTO {
     private String guid;
