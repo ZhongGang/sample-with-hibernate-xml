@@ -93,7 +93,7 @@
     </script>
 </head>
 <body>
-<h1>Examines Statistic Overview</h1>
+<h1>Examines Statistic Overview(VisitCount is ${sessionScope.visitCount})</h1>
 
 <div id="columnChartsContainer" style="width:100%; height:300px;"></div>
 <div id="pieChartsContainer" style="width:100%; height:300px;"></div>
