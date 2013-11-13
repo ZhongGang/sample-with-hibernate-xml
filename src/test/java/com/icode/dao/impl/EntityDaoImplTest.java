@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import javax.sql.DataSource;
@@ -84,4 +85,19 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
         Connection connection = DataSourceUtils.getConnection(dataSource);
 
     }
+
+
+    @Test
+    public void testIdGenerator() throws Exception {
+        Session session = sessionFactory.openSession();
+
+        Shop shop = new Shop();
+
+        Assert.assertNull(shop.getId());
+
+        session.saveOrUpdate(shop);
+
+        Assert.assertNotNull(shop.getId());
+    }
+
 }
