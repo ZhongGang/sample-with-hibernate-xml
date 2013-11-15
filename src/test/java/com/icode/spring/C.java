@@ -7,4 +7,5 @@ package com.icode.spring;
  * Time: 上午10:20
  */
 public class C extends A {
+    public static final String TEMPLATE_NAME = "C";
 }

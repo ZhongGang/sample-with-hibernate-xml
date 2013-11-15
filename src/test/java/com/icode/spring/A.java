@@ -7,8 +7,9 @@ package com.icode.spring;
  * Time: 上午10:18
  */
 public class A {
+    public static final String TEMPLATE_NAME = "A";
 
     public static void print() {
-        System.out.println("A");
+        System.out.println(TEMPLATE_NAME);
     }
 }
