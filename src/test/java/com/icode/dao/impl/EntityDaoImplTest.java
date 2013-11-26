@@ -2,10 +2,13 @@ package com.icode.dao.impl;
 
 import com.icode.core.model.Product;
 import com.icode.core.model.Shop;
+import com.icode.core.model.User;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,6 +32,9 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Test
     @Transactional
@@ -98,6 +104,34 @@ public class EntityDaoImplTest extends AbstractTransactionalTestNGSpringContextT
         session.saveOrUpdate(shop);
 
         Assert.assertNotNull(shop.getId());
+    }
+
+    @Test
+    public void testSession() throws Exception {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        User user = new User();
+        currentSession.saveOrUpdate(user);
+
+        User result = (User) currentSession.get(User.class, user.getId());
+        Assert.assertNull(result.getUsername());
+
+        user.setUsername("ZhongGang");
+        currentSession.saveOrUpdate(user);
+
+        result = (User) currentSession.get(User.class, user.getId());
+        Assert.assertEquals(result.getUsername(), "ZhongGang");
+
+//        currentSession.evict(result);
+//        currentSession.merge(result);
+
+        List<String> userNames = jdbcTemplate.queryForList("select username from user", String.class);
+        Assert.assertEquals(userNames.get(0), "ZhongGang");
+
+        Query query = currentSession.createQuery("from User");
+        List<User> users = query.list();
+        Assert.assertEquals(users.get(0).getUsername(), "ZhongGang");
+
     }
 
 }
